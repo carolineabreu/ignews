@@ -1,7 +1,7 @@
 import { stripe } from "@/src/services/stripe";
 import { query as q } from "faunadb";
-import { getSession } from "next-auth/react";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 import { fauna } from "../../services/fauna";
 
 type User = {
@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       line_items: [{ price: "price_1MwPb1GoJcL1xFfvwiKTLVfC", quantity: 1 }],
       mode: "subscription",
       allow_promotion_codes: true,
-      success_url: process.env.STRIPE_SUCESS_URL!,
+      success_url: process.env.STRIPE_SUCCESS_URL!,
       cancel_url: process.env.PROCESS_CANCEL_URL,
     });
 
