@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import { GetStaticProps } from "next";
-import { getPrismicClient } from "@/src/services/prismic";
+import { getPrismicClient } from "../../services/prismic";
 import { RichText } from "prismic-dom";
 import Link from "next/link";
 
@@ -55,17 +55,13 @@ export const getStaticProps: GetStaticProps = async () => {
       slug: post.uid,
       title: RichText.asText(post.data.title),
       excerpt:
-        post.data.content.find(
-          (content: { type: any }) => content.type === "paragraph"
-        )?.text ?? "",
-      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
-        "en-US",
-        {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        }
-      ),
+        post.data.content.find((content: { type: any }) => content.type === "paragraph")?.text ??
+        "",
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }),
     };
   });
 

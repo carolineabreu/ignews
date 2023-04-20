@@ -1,51 +1,48 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { stripe } from "@/src/services/stripe";
+import { stripe } from "../../services/stripe";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "stream";
 import Stripe from "stripe";
 
 async function buffer(readable: Readable) {
-  const chunks = []
+  const chunks = [];
 
   for await (const chunk of readable) {
-    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk)
+    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
   }
 
-  return Buffer.concat(chunks)
+  return Buffer.concat(chunks);
 }
 
 export const config = {
   api: {
-    bodyParser: false
-  }
-}
+    bodyParser: false,
+  },
+};
 
-const relevantEvents = new Set([
-  "checkout.session.completed"
-])
+const relevantEvents = new Set(["checkout.session.completed"]);
 
-export default async  (req: NextApiRequest, res: NextApiResponse) => {
-  if(req.method === "POST") {
-    const buf = await buffer(req)
-    const secret = req.headers["stripe-signature"]
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === "POST") {
+    const buf = await buffer(req);
+    const secret = req.headers["stripe-signature"];
 
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(buf, secret!, process.env.STRIPE_WEBHOOK_SECRET!)
+      event = stripe.webhooks.constructEvent(buf, secret!, process.env.STRIPE_WEBHOOK_SECRET!);
     } catch (err: any) {
-      console.log(err)
-      return res.status(400).end(`Webhook error: ${err.message}`)
+      console.log(err);
+      return res.status(400).end(`Webhook error: ${err.message}`);
     }
 
-    const {type} = event;
+    const { type } = event;
 
-    if(relevantEvents.has(type)) {
-      console.log("Evento recebido", event)
+    if (relevantEvents.has(type)) {
+      console.log("Evento recebido", event);
     }
-
   } else {
-    res.setHeader("Allow", "POST")
-    res.status(405).end("Method not allowed.")
+    res.setHeader("Allow", "POST");
+    res.status(405).end("Method not allowed.");
   }
-}
+};

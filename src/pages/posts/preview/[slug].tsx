@@ -1,4 +1,4 @@
-import { getPrismicClient } from "@/src/services/prismic";
+import { getPrismicClient } from "../../../services/prismic";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
@@ -72,14 +72,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug,
     title: RichText.asText(response.data.title),
     content: RichText.asHtml(response.data.content.slice(0, 3)),
-    updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-      "en-US",
-      {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }
-    ),
+    updatedAt: new Date(response.last_publication_date).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }),
   };
 
   return {
