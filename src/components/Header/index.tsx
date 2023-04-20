@@ -1,11 +1,8 @@
-import Link from "next/link";
 import { SignInButton } from "../SignInButton";
 import styles from "./styles.module.scss";
-import { useRouter } from "next/router";
 import { ActiveLink } from "../ActiveLink";
 
 export function Header() {
-  const { asPath } = useRouter();
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -15,11 +12,7 @@ export function Header() {
           <ActiveLink activeClassName={styles.active} href="/" legacyBehavior>
             <a>Home</a>
           </ActiveLink>
-          <ActiveLink
-            activeClassName={styles.active}
-            href="/posts"
-            legacyBehavior
-          >
+          <ActiveLink activeClassName={styles.active} href="/posts" legacyBehavior>
             <a>Posts</a>
           </ActiveLink>
         </nav>
