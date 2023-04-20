@@ -1,4 +1,4 @@
-import { stripe } from "@/src/services/stripe";
+import { stripe } from "../../services/stripe";
 import { query as q } from "faunadb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
