@@ -12,4 +12,12 @@ module.exports = {
   moduleNameMapper: {
     "\\.(scss|css|sass)$": "identity-obj-proxy", //todo arquivo que termina com essas extensões, vai usar essa biblioteca
   },
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.tsx",
+    "!src/**/*.spec.tsx",
+    "!src/**/*_app.tsx",
+    "!src/**/*_document.tsx",
+  ],
+  coverageReporters: ["lcov", "json"],
 };
