@@ -1,8 +1,8 @@
-import { getPrismicClient } from "../../services/prismic";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { RichText } from "prismic-dom";
+import { getPrismicClient } from "../../services/prismic";
 import styles from "./post.module.scss";
 
 interface PostProps {
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
     };
   }
 
-  const prismic = getPrismicClient(req);
+  const prismic = getPrismicClient();
 
   const response = await prismic.getByUID("publication", String(slug), {});
 

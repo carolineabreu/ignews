@@ -1,12 +1,12 @@
-import { getPrismicClient } from "../../../services/prismic";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
-import { RichText } from "prismic-dom";
-import styles from "../post.module.scss";
 import Link from "next/link";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { RichText } from "prismic-dom";
+import { useEffect } from "react";
+import { getPrismicClient } from "../../../services/prismic";
+import styles from "../post.module.scss";
 
 interface PostPreviewProps {
   post: {
@@ -25,7 +25,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
     if (session?.activeSubscription) {
       router.push(`/posts/${post.slug}`);
     }
-  }, [session]);
+  }, [post.slug, router, session]);
 
   return (
     <>
