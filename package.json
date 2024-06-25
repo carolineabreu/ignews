@@ -45,6 +45,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
-    "slice-machine-ui": "^0.7.1"
+    "slice-machine-ui": "^2.2.1"
   }
 }
